@@ -1,30 +1,26 @@
 USYD WAM Calculator
 
-A lightweight terminal tool for Master of Computer Science students at the University of Sydney.
+A simple terminal tool for Master of Computer Science students at the University of Sydney.
 
-It calculates the average exam marks required to qualify for your desired second-year stream (Research, Work Integrated Learning, or Capstone) and recommends study focus areas based on your enrolled subjects.
+It helps you:
 
+Estimate your maximum achievable WAM based on your current marks
+Determine your eligibility for Research, Work Integrated Learning, or Capstone streams
+Get learning outcomes to focus on, tailored to your current units
 
-Based On-------
+Based On Core Units:
+COMP9001 – Python Programming
+COMP9120 – Database Management Systems
+COMP9123 – Data Structures & Algorithms
+COMP9601 – Computer & Network Organisation
+INFO5990 – IT Management
+INFO5992 – IT Innovations
+INFO6007 – IT Project Management
+STAT5002 – Stats for Data Science
 
-Core first-year units in the USYD CS Masters program:
-- `COMP9001` — Introduction to Programming  
-- `COMP9120` — Database Management Systems  
-- `COMP9123` — Data Structures and Algorithms  
-- `COMP9601` — Computer and Network Organisation  
-- `INFO5990` — Professional Practice in IT  
-- `INFO5992` — Understanding IT Innovations  
-- `INFO6007` — Project Management in IT  
-- `STAT5002` — Introductory Statistics for Data Science (also used in Algorithms & AI specialisations)
+How It Works
+Just follow the prompts to enter:
 
-Usage-------
-
-Follow prompts to enter:
-
-Your name, semester, specialisation
-Target stream
-Current subject grades
-The tool then calculates:
-
-Required exam averages
-Learning outcomes to revise
+Your name, semester, and stream goal
+Your specialisation and enrolled units
+Your current grades
