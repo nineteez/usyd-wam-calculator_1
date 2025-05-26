@@ -23,7 +23,7 @@ class Possible_streams:
             max_semester_2_mark = 100
 
         else:
-            max_semester_1_mark = self.student.wam - self.student.this_sem_wam
+            max_semester_1_mark = self.student.previous_wam
             max_semester_2_mark = (self.student.this_sem_wam + 100) / 2
 
         max_wam = (max_semester_1_mark + max_semester_2_mark) / 2
@@ -200,8 +200,9 @@ class Student:
                 except ValueError:
                     print("❌ Please enter a valid number.")
 
-            self.wam = round((previous_wam + this_sem_wam) / 2, 2)
+            self.previous_wam = previous_wam
             self.this_sem_wam = this_sem_wam
+            self.wam = round((previous_wam + this_sem_wam) / 2, 2)
 
     @classmethod
     def build_student_object(cls):
@@ -217,9 +218,3 @@ class Student:
             if step() == 'exit':
                 return None
         return student
-
-    # def set_grade(self):
-    #     if self.semester = 1:
-    #         raw_grades = input('For each unit, enter name and total grade (pre exam) (e.g., COMP5045:78,COMP5310:74)')
-    #     else:
-    #         raw_grades = input('Enter completed subjects and grades so (e.g., COMP5045:78,COMP5310:74): ')
