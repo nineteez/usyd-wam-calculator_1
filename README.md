@@ -4,9 +4,14 @@ A simple terminal tool for Master of Computer Science students at the University
 
 It helps you:
 
-Estimate your maximum achievable WAM based on your current marks
-Determine your eligibility for Research, Work Integrated Learning, or Capstone streams
-Get learning outcomes to focus on, tailored to your current units
+Estimate your **maximum achievable WAM** based on your current marks
+Checks your **eligibility** for second-year streams:
+  - Research  
+  - Work Integrated Learning (WIL)  
+  - Capstone
+Generates a **personalised study plan** with topic-based **learning outcomes** tailored to:  
+  - Your current units  
+  - Recommended future units (if you're in Semester 1)
 
 Based On Core Units:
 COMP9001 – Python Programming
@@ -19,8 +24,4 @@ INFO6007 – IT Project Management
 STAT5002 – Stats for Data Science
 
 How It Works
-Just follow the prompts to enter:
-
-Your name, semester, and stream goal
-Your specialisation and enrolled units
-Your current grades
+Just follow the prompts
