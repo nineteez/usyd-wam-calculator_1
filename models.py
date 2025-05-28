@@ -41,12 +41,12 @@ class Possible_streams:
 
         if self.student.semester == 1:
             p = self.student.this_sem_wam
-            required_avg = (12 * target_wam - 2 * p) / 10
+            required_avg = (8 * target_wam - 2 * p) / 6
 
         elif self.student.semester == 2:
             w1 = self.student.previous_wam
             p = self.student.this_sem_wam
-            required_avg = 4 * target_wam - w1 - p
+            required_avg = 2 * (2 * target_wam - w1) - p
 
         if required_avg > 100:
             eligibility = False
