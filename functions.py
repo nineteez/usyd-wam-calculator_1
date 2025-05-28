@@ -52,20 +52,15 @@ unit_to_topic = {
 }
 
 # Define topic mappings for program development
-specialisation_to_units = {
-    "Algorithms And Theory": ["COMP9101", "COMP9201"],
-    "Cybersecurity": ["COMP9447", "COMP6445"],
-    "Data Science And AI": ["COMP5310", "COMP5329"],
-    "Digital Media": ["COMP5827", "COMP5424"],
-    "Human Computer Interaction": ["COMP5456", "COMP5416"],
-    "Networks And Distributed Systems": ["COMP5349", "COMP5415"],
-    "Software Engineering": ["COMP5806", "COMP5045"]
-}
-
-#calulate required WAM
-def calculate_required_wam(student):
-    stream = models.Stream(student.stream)
-    print(stream = models.Stream(student.stream))
+# specialisation_to_units = {
+#     "Algorithms And Theory": ["COMP9101", "COMP9201"],
+#     "Cybersecurity": ["COMP9447", "COMP6445"],
+#     "Data Science And AI": ["COMP5310", "COMP5329"],
+#     "Digital Media": ["COMP5827", "COMP5424"],
+#     "Human Computer Interaction": ["COMP5456", "COMP5416"],
+#     "Networks And Distributed Systems": ["COMP5349", "COMP5415"],
+#     "Software Engineering": ["COMP5806", "COMP5045"]
+# }
 
 def handle_exit():
     print("👋 Exiting the program. Goodbye!")
