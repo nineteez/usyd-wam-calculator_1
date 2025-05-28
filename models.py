@@ -1,4 +1,5 @@
 import functions
+import time
 
 # refer to in classes below
 STREAM_DATA = {
@@ -17,7 +18,7 @@ class Possible_streams:
     # Calculate stream eligibilties and store as attribute
     def get_eligible_streams(self):
         self.eligible_streams = []  # clear any previous values
-        
+
         if self.student.semester == 1:
             max_semester_1_mark =  (self.student.wam + 100) / 2
             max_semester_2_mark = 100
@@ -29,11 +30,113 @@ class Possible_streams:
         max_wam = (max_semester_1_mark + max_semester_2_mark) / 2
         self.max_wam = round(max_wam, 2)
 
-        #search streams to assign stream eligibilities
+        # Search streams to assign stream eligibilities
         for stream, data in STREAM_DATA.items():
             if self.max_wam >= data["required_wam"]:
                 self.eligible_streams.append(stream)
 
+    # New method: Calculate required average to reach stream
+    def get_required_avg_for_stream(self):
+        target_wam = STREAM_DATA[self.student.stream]["required_wam"]
+
+        if self.student.semester == 1:
+            p = self.student.this_sem_wam
+            required_avg = (12 * target_wam - 2 * p) / 10
+
+        elif self.student.semester == 2:
+            w1 = self.student.previous_wam
+            p = self.student.this_sem_wam
+            required_avg = 2 * (2 * target_wam - w1) - p
+
+        required_avg = round(required_avg, 2)
+
+        if required_avg > 100:
+            eligibility = False
+        elif required_avg < 0:
+            eligibility = True
+            required_avg = 0
+        else:
+            eligibility = True
+
+        return required_avg, eligibility
+
+    #Write improvement suggestions to a file
+    def write_improvement_suggestions(self):
+        file_name = f"{self.student.name} - Improvement Suggestions.txt"
+        improvement_suggestions = open(file_name, "w")
+
+        # Write a Customer HEader
+        header = f'''Study plan for second year {self.student.stream} 
+Student: {self.student.name}
+Semester: {self.student.semester}
+Specialisation: {self.student.specialisation}
+        '''
+        improvement_suggestions.write(header + "\n\n")
+
+
+        total_units = list(functions.unit_to_topic.keys())
+        
+        # Create list of exams for current semester
+        remaining_exams = list(self.student.current_units)
+
+        # Create list of remaining units for semester 2 (if semester 1 student)
+        if self.student.semester == 1:
+            remaining_units = []
+            for unit in total_units:
+                if unit not in self.student.current_units:
+                    remaining_units.append(unit)
+
+        # Create write functions
+
+        # Current semester exam study recommendations
+        def write_exam_topics():
+            improvement_suggestions.write("\nThis semester Exam Focus:\n")
+
+            for unit in remaining_exams:
+                if unit in functions.unit_to_topic:
+                    improvement_suggestions.write(f"\nUnit: {unit}\n")
+                    topics = functions.unit_to_topic[unit]
+        
+                    for topic in topics:
+                        improvement_suggestions.write(f"  Topic: {topic}\n")
+                        for outcome in functions.learning_outcomes.get(topic, []):
+                            improvement_suggestions.write(f"    • {outcome}\n")
+
+
+        # Next semester study recommendations
+        def next_semester_study_plan():
+            improvement_suggestions.write("\nNext Semester Focus:\n")
+
+            for unit in remaining_units:
+                if unit in functions.unit_to_topic:
+                    improvement_suggestions.write(f"\nUnit: {unit}\n")
+                    topics = functions.unit_to_topic[unit]
+
+                    for topic in topics:
+                        improvement_suggestions.write(f"  Topic: {topic}\n")
+                        for outcome in functions.learning_outcomes.get(topic, []):
+                            improvement_suggestions.write(f"    • {outcome}\n")                    
+
+
+
+        # Write study suggestions
+        if self.student.semester == 1:
+            # Write Sem1 
+            write_exam_topics()
+
+            # Write Sem2 
+            next_semester_study_plan()
+        
+        elif self.student.semester == 2:
+
+            #Write Sem2 
+            write_exam_topics()
+
+
+        improvement_suggestions.close()
+        print(f'View your study plan in the attached file: {file_name}')
+        time.sleep(1)
+        print(f'Good Luck! {self.student.name}!')
 
 class Student:
     specialisation_options = [
@@ -163,7 +266,6 @@ class Student:
             self.current_units = uos_code_list
             break
 
-    # Calculate current WAM
     def set_current_wam(self):
         total = 0
         count = 0
@@ -187,8 +289,8 @@ class Student:
         this_sem_wam = total / count
 
         if self.semester == 1:
+            self.this_sem_wam = round(this_sem_wam, 2)
             self.wam = round(this_sem_wam, 2)
-
         elif self.semester == 2:
             while True:
                 try:
